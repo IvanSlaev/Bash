@@ -1,0 +1,10 @@
+
+#!/bin/bash
+
+read var
+if [ $(($var%2)) -eq 0 ]
+then
+	echo $var е четно
+else
+	echo $var е нечетно
+fi 

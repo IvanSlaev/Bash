@@ -1,0 +1,9 @@
+#!/bin/bash
+
+myNum=10
+if [ $myNum -eq 100 ]
+then
+	echo "$myNum = 100"
+else
+	echo "$myNum != 100"
+fi

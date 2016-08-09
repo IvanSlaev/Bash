@@ -1,0 +1,4 @@
+while #!/bin/bash
+
+echo "value='cat home/desy/bin/test.txt'"
+echo "$value"
