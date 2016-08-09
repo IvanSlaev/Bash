@@ -4,9 +4,6 @@
 dispTime=0
 procTime=0
 
-a="a"
-b="a"
-
 while read line; do
 	IFS=' ' read -a array <<<$line
 	for index in "${!array[@]}"; do
