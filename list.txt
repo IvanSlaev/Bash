@@ -1,5 +1,0 @@
-total 24
--rwxrwxr-x 1 vanchu vanchu  100 авг  3 13:41 ifStatement
--rwxrwxr-x 1 vanchu vanchu  110 авг  3 15:12 ifTFE
-drwxrwxr-x 2 vanchu vanchu 4096 авг  3 14:16 ifTheFolderExists
--rw-rw-r-- 1 vanchu vanchu    0 авг  3 16:58 list.txt
