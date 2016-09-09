@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo "Enter your name"
-read customerName
-echo "Customer name is: $customerName"
