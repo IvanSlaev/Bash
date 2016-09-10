@@ -19,5 +19,5 @@ calc_work_time()
 	
 	end=$(date +%s.%N)
 	runtime=$(echo "$end - $start" | bc)
-	printf "Calculation duration: $runtime ms\n"
+	printf "Calculation duration: $runtime s\n"
 }

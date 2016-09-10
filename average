@@ -1,0 +1,27 @@
+#!/bin/bash
+
+##############################################
+# Find the average of n numbers
+##############################################
+# Specify numbers as positional parameters
+##############################################
+
+average()
+{
+	if [ $# = 0 ]; then
+		echo 0
+		return
+	fi
+	
+	total=$(echo "0" | bc)
+
+	for i; do
+		number=$(echo "scale=10; $i" | bc)
+		total=$(echo "scale=10; $total + $number" | bc)
+	done
+
+	result=$(echo "scale=3; $total/$#" | bc)
+	printf "Average number is: %s\n" "$result"
+}
+
+echo Function average loaded

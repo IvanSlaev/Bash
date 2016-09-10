@@ -1,0 +1,12 @@
+#!/bin/bash
+##########################################
+# Backing files up 
+##########################################
+
+# specify dir where backups to be located
+backUpDir="parh to backup dir"
+
+for fname; do
+   cp $fname $backUpDir
+   echo $fname has been backed up
+done
