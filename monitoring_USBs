@@ -7,7 +7,7 @@
 ######################################################################
 
 touch patch
-waitTime=2
+waitTime=1
 lsusb > BufferList
 echo "Current state backed up. Start tracking for USB devices every second"
 sleep $waitTime
