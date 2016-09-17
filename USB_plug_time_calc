@@ -1,0 +1,65 @@
+#!/bin/bash
+
+######################################################################
+# USB plug in time calc
+######################################################################
+# Calculates the plug in duration of a USB
+######################################################################
+
+touch patch
+waitTime=1
+lsusb > BufferList
+echo "Current state backed up. Start tracking for USB devices every second"
+sleep $waitTime
+
+new_device_detected()
+{
+	while : ; do
+		lsusb > CurrentList
+		diff BufferList CurrentList > patch
+		if [[ ! -z `cat patch` ]]; then
+			cat CurrentList > BufferList
+			return 0
+		fi
+		cat CurrentList > BufferList
+		sleep $waitTime
+	done
+}
+
+trackedUSB=""
+while : ; do
+	read neshto < <(new_device_detected)
+	if [[ $neshto -eq "0" ]]; then
+		read USB < <(grep "Bus" patch)
+		if [[ `echo $USB | sed -r 's/([<|>]).*/\1/'` = ">" ]]; then
+			if [[ -z $trackedUSB ]]; then
+				plugTime=$(date +"%s")
+				echo "Is that the desired USB you want to track:"
+				echo $USB
+				read -p "Confirm (Y/N): " yn
+				case $yn in
+					[Yy]* ) 
+						echo "OK we will wait to calculate the plug in time of that device"
+						trackedUSB=$USB
+					;;
+					[Nn]* ) 
+						echo "OK we will wait to detect another one"
+					;;
+					* ) echo "Please answer yes or no.";;
+				esac
+			else
+				echo "You plugged some other USB"
+			fi
+		else
+			unlugTime=$(date +"%s")
+			read unpluggedUSB < <(grep "Bus" patch)
+			if [[ `echo $trackedUSB | sed -r 's/> (.*)/\1/'` = `echo $unpluggedUSB | sed -r 's/< (.*)/\1/'` ]]; then
+				echo "Maaan, you unpluged your tracked USB"
+				printf "The device was plugged for: %s seconds\n" $(($unlugTime - $plugTime))
+				exit 0
+			else
+				echo "You unplugged some other USB"
+			fi
+		fi
+	fi
+done
