@@ -6,6 +6,7 @@
 # Specify numbers as positional parameters for the function
 ###########################################################
 
+
 average()
 {
 	if [ $# = 0 ]; then
