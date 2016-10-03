@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ -d ./ifTFolderE ]
-then
-	echo "The folder exists"
-else
-	echo "The folder does not exists"
-fi

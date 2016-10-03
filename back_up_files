@@ -19,7 +19,6 @@ mkdir $backUpDIR
 # backing up
 for fname; do
 	if [[ `dirname "$fname"` = $backUpDIR ]]; then
-		[[ -z "${`dirname "$fname"`// }" ]] && exit 0
 		continue
 	else
 	cp $fname $backUpDIR
