@@ -1,0 +1,32 @@
+#!/bin/bash
+##################################################
+# Backing files up in tar
+##################################################
+# specify dir name for files to be backed up in
+# as second positional parameter
+##################################################
+# specify files to back up
+# as next positional parameters
+##################################################
+
+# dealing with pos params
+backUpDIR=$1
+shift 1
+
+# create dir
+mkdir $backUpDIR
+
+# backing up
+for fname; do
+	if [[ `dirname "$fname"` = $backUpDIR ]]; then
+		[[ -z "${`dirname "$fname"`// }" ]] && exit 0
+		continue
+	else
+	cp $fname $backUpDIR
+	printf "%s has been backed up\n" "$fname"
+	fi
+done
+
+# tar the folder and get rid of it
+tar -czf $backUpDIR.tar.gz $backUpDIR
+rm -R $backUpDIR
