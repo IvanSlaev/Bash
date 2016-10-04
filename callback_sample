@@ -1,0 +1,14 @@
+#!/bin/bash
+
+######################################################################
+# Callback sample
+######################################################################
+# a short demonstration of a callback funcs in bash
+######################################################################
+
+
+callback() { printf " Callback Func"; }
+
+func() { printf "Hello"; printf "$($1)"; printf "!\n"; }
+
+func callback
