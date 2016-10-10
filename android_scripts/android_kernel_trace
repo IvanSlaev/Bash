@@ -1,0 +1,37 @@
+#!/bin/bash
+ 
+ADBDIR="/usr/bin/"
+APPDIR=`pwd`
+TESTTIME="50"
+APPEND=""
+ 
+function check {
+  if [ $? -ne "0" ]
+  then
+  exit 1
+  fi
+}
+ 
+${ADBDIR}/adb shell "echo 0 > /d/tracing/trace"
+check
+ 
+sleep 1
+ 
+${ADBDIR}/adb shell "echo irqsoff > /d/tracing/current_tracer"
+check
+ 
+sleep 1
+ 
+echo "Starting tracing for $TESTTIME..."
+${ADBDIR}/adb shell "echo  1 > /d/tracing/tracing_enabled"
+check
+ 
+sleep $TESTTIME
+ 
+echo "Stopped tracing"
+${ADBDIR}/adb shell "echo  0 > /d/tracing/tracing_enabled"
+check
+ 
+APPEND=`date -u | cut -d" " -f4`
+ 
+${ADBDIR}/adb pull /d/tracing/trace ${APPDIR}/trace_${APPEND}

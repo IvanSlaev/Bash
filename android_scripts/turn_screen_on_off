@@ -1,0 +1,19 @@
+#!/bin/bash
+
+######################################################################
+# name
+######################################################################
+# comment
+######################################################################
+
+
+if [ $( adb shell dumpsys power | grep mScreenOn= | grep -oE '(true|false)' ) = false ]; then
+echo "The screen is off, we will turn it on and unlock the device for you."
+adb shell input keyevent 26
+adb shell input touchscreen swipe 400 380 100 380 # unlock
+echo "OK, should be ON now."
+else
+echo "The screen is on, we will turn it off for you."
+adb shell input keyevent 26
+echo "OK, should be OFF now."
+fi
